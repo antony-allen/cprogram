@@ -2532,6 +2532,193 @@
 //18.5、数组应用实例
 //18.5.1、三子棋
 
+//递归练习题
 
-//60节
-//18.5.2、扫雷游戏
+//#include <stdio.h>
+//int fun(int n)
+//{
+//    if (n == 5)
+//        return 2;
+//    else
+//        return 2*fun(n+1);
+//}
+//int main()
+//{
+//    int ret = fun(2);
+//    printf("%d\n",ret);
+//    return 0;
+//}
+
+//打印一个数的每一位
+//求阶乘
+//strlen模拟
+
+//字符串逆序（递归实现）
+
+//方法一
+
+//#include <stdio.h>
+//#include <string.h>
+//int main()
+//{
+//    char arr[] = "abcdefg";
+//
+//    //int sz = sizeof(arr)  / sizeof(arr[0]);
+//    int left = 0;
+//
+//    //int right = sz - 2;
+//
+//    int right = strlen(arr)-1;
+//    while (left <= right)
+//    {
+//        char tmp = arr[left];
+//        arr[left] = arr[right];
+//        arr[right] = tmp;
+//
+//        left++;
+//        right--;
+//    }
+//    printf("%s\n",arr);
+//    return 0;
+//}
+
+
+//函数实现
+
+//#include <stdio.h>
+//#include <string.h>
+//void reverse (char arr[])
+//{
+//    int left = 0;
+//
+//    //int right = sz - 2;
+//
+//    int right = strlen(arr)-1;
+//    while (left <= right)
+//    {
+//        char tmp = arr[left];
+//        arr[left] = arr[right];
+//        arr[right] = tmp;
+//
+//        left++;
+//        right--;
+//    }
+//    printf("%s\n",arr);
+//}
+//int main()
+//{
+//    char arr[] = "abcdefg";
+//
+//    //int sz = sizeof(arr)  / sizeof(arr[0]);
+//    reverse(arr);
+//    return 0;
+//}
+
+//用递归的方式实现
+
+//#include <stdio.h>
+//#include <string.h>
+//int my_strlen(char *str)
+//{
+//    int count = 0;
+//    while (*str != '\0')
+//    {
+//        count++;
+//        str++;
+//    }
+//    return count;
+//}
+//void reverse (char *str)
+//{
+//    char tmp = *str;
+//    int len = my_strlen(str);
+//    *str =  *(str + len - 1);
+//    *(str + len - 1) = '\0';
+//    if(my_strlen(str) >= 2)
+//        reverse(str+1);
+//    *(str + len - 1) = tmp;
+//}
+//int main()
+//{
+//    char arr[] = "abcdefg";
+//    reverse(arr);
+//    printf("%s\n",arr);
+//    return 0;
+//}
+
+//简化版本
+
+//#include <stdio.h>
+//int my_strlen(char *str)
+//{
+//    int count = 0;
+//    while (*str != '\0')
+//    {
+//        count++;
+//        str++;
+//    }
+//    return count;
+//}
+//void reverse (char arr[],int left,int right)
+//{
+//    char tmp = arr[left];
+//    arr[left] = arr[right];
+//    arr[right] = tmp;
+//    if(left < right)
+//        reverse(arr,left+1,right-1);
+//}
+//int main()
+//{
+//    char arr[] = "abcdefg";
+//    int left = 0;
+//    int right = my_strlen(arr)-1;
+//    reverse(arr,left,right);
+//    printf("%s\n",arr);
+//    return 0;
+//}
+
+//计算每个数的每位之和
+//例如输入1234，返回1+2+3+4
+
+//#include <stdio.h>
+//int  digitsum(unsigned int n)
+//{
+//    if(n > 9)
+//        return digitsum(n / 10) + n % 10;
+//    else
+//        return n;
+//}
+//int main()
+//{
+//    unsigned int n = 0;
+//    scanf_s("%u",&n);
+//    int sum = digitsum(n);
+//    printf("%d\n",sum);
+//    return 0;
+//}
+
+//编写一个函数，实现n的k次方
+#include <stdio.h>
+
+double pow(int n, int k);
+
+double pow(int n, int k) {
+    if (k > 0)
+        return n * pow(n, k - 1);
+    else if (k == 0)
+        return 1;
+    else
+        return 1.0 / n * (pow(n, -k));
+}
+
+int main() {
+    int n = 0;
+    int k = 0;
+    scanf_s("%d %d", &n, &k);
+    double ret = pow(n, k);
+    printf("%lf\n", ret);
+    return 0;
+}
+
+
+//64节
