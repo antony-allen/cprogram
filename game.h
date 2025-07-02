@@ -24,6 +24,12 @@ void PlayerMove(char board[ROW][COL], int row, int col);
 //找没有下棋的位置随机下棋
 void ComputerMove(char board[ROW][COL], int row, int col);
 
+//玩家赢 ——‘*’
+//电脑赢 ——‘#’
+//平局 —— ‘Q'
+//继续 ——'C'
+//
+char IsWin(char board[ROW][COL], int row, int col);
 
 #endif //CPROGRAM_GAME_H
 
