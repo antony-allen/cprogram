@@ -2661,11 +2661,13 @@
 //}
 //void reverse (char arr[],int left,int right)
 //{
-//    char tmp = arr[left];
-//    arr[left] = arr[right];
-//    arr[right] = tmp;
 //    if(left < right)
-//        reverse(arr,left+1,right-1);
+//    {
+//        char tmp = arr[left];
+//        arr[left] = arr[right];
+//        arr[right] = tmp;
+//        reverse(arr, left + 1, right - 1);
+//    }
 //}
 //int main()
 //{
@@ -2698,27 +2700,422 @@
 //}
 
 //编写一个函数，实现n的k次方
-#include <stdio.h>
 
-double pow(int n, int k);
+//#include <stdio.h>
+//double pow(int n, int k)
+//{
+//    if (k > 0)
+//        return n * pow(n, k - 1);
+//    else if (k == 0)
+//        return 1;
+//    else
+//        return 1.0 / pow(n, -k);
+//}
+//
+//int main()
+//{
+//    int n = 0;
+//    int k = 0;
+//    scanf("%d %d", &n, &k);
+//    double ret = pow(n, k);
+//    printf("%lf\n", ret);
+//    return 0;
+//}
 
-double pow(int n, int k) {
-    if (k > 0)
-        return n * pow(n, k - 1);
-    else if (k == 0)
-        return 1;
-    else
-        return 1.0 / n * (pow(n, -k));
-}
+//数组作业
 
-int main() {
-    int n = 0;
-    int k = 0;
-    scanf_s("%d %d", &n, &k);
-    double ret = pow(n, k);
-    printf("%lf\n", ret);
-    return 0;
-}
+//#include <stdio.h>
+//int main()
+//{
+//    int arr[] = {1,2,(3,4),5,};
+//    printf("%d\n",sizeof(arr));
+//    return 0;
+//}
 
 
-//64节
+//#include <stdio.h>
+//#include <string.h>
+//
+//
+////h e l l o _ b i t \0
+////sizeof是一个操作符，用来计算变量(类型)所占内存空间的大小，不关注内存中放置的具体内容。
+////strlen是一个库函数，是专门求字符串长度的，只能针对字符串。
+////从参数给定的地址向后找\0，统计\0之前出现的字符的个数。
+//
+//int main()
+//{
+//    char arr[] = "hello bit";
+//    printf("%d %d\n",sizeof(arr),strlen(arr));
+//    return 0;
+//}
+
+//将数组A中的内容和数组B中的内容进行交换，数组一样大。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int arr1[] = {1,3,5,7,9};
+//    int arr2[] = {2,4,6,8,0};
+//    int sz = sizeof(arr1) / sizeof(arr1[0]);
+//    for (int i = 0; i < sz; ++i)
+//    {
+//        int tmp = arr1[i];
+//        arr1[i] = arr2[i];
+//        arr2[i] = tmp;
+//    }
+//    for (int i = 0; i < sz; ++i)
+//    {
+//        printf("%d ",arr1[i]);
+//    }
+//    printf("\n");
+//
+//    for (int i = 0; i < sz; i++)
+//    {
+//        printf("%d ",arr2[i]);
+//    }
+//    printf("\n");
+//    return 0;
+//}
+
+//创建一个整型数组，完成以下操作
+//实现函数init，初始化数组全为0；
+//实现print函数，打印数组的每个元素；
+//实现函数reverse，完成数组元素的逆置。
+
+//#include <stdio.h>
+//void init(int arr[],int sz)
+//{
+//    for (int i = 0; i < sz; i++)
+//    {
+//        arr[i] = 0;
+//    }
+//}
+//void print(int arr[],int sz)
+//{
+//    for (int i = 0; i < sz; i++)
+//    {
+//        printf("%d ",arr[i]);
+//    }
+//    printf("\n");
+//}
+//
+//void reverse(int arr[],int sz)
+//{
+//    int left = 0;
+//    int right = sz-1;
+//    while(left < right)
+//    {
+//        int tmp = arr[left];
+//        arr[left] = arr[right];
+//        arr[right] = tmp;
+//
+//        left++;
+//        right--;
+//
+//    }
+//
+//}
+//int main()
+//{
+//    int arr[] = {1,2,3,4,5,6,7,8,9,0};
+//    int sz = sizeof(arr) / sizeof(arr[0]);
+//    print(arr,sz);
+//    reverse(arr,sz);
+//    print(arr,sz);
+//    init(arr,sz);
+//    print(arr,sz);
+//    return 0;
+//}
+
+//18.5.2、扫雷
+
+//19、操作符
+//19.1操作符的分类
+//19.2、算术操作符  + - * / %
+// %操作符的两端必须是整数
+
+//#include <stdio.h>
+//int main()
+//{
+//    int a = 7 % 2;
+//    int b = 7 / 2;
+//    printf("%d\n",a);
+//    printf("%d\n",b);
+//    return 0;
+//}
+
+//19.3、移位操作符
+//19.3.1、左移操作符
+//正数
+
+//#include <stdio.h>
+//int main()
+//{
+//    int a = 7;
+//    //左移操作符
+//    //移动的是二进制位
+//    int b = a << 1;
+//    printf("a = %d\n",a);
+//    printf("b = %d\n",b);
+//    return 0;
+//}
+
+//负数
+//#include <stdio.h>
+//int main()
+//{
+//    int a = -7;
+//    //左移操作符
+//    //移动的是二进制位，相当于乘以2。
+//    int b = a << 1;
+//    printf("a = %d\n",a);
+//    printf("b = %d\n",b);
+//    return 0;
+//}
+
+//19.3.2、右移操作符
+//算术右移操作符：右边丢弃，左边补原符号位。
+//逻辑右移操作符：右边丢弃，左边补0。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int a = -7;
+//    //右移操作符
+//    //移动的是二进制位，相当于除以2。
+//    int b = a >> 1;
+//    printf("a = %d\n",a);
+//    printf("b = %d\n",b);
+//    return 0;
+//}
+
+
+//19.4、位操作符
+
+// & -按（二进制）位与
+// | -按（二进制）位或
+// ^ -按（二进制）位异或
+
+// &的用法
+
+//#include <stdio.h>
+//int main()
+//{
+//    int a = 3;
+//    int b = -5;
+//    int c = a & b;
+//    printf("c = %d\n",c);
+//    return 0;
+//}
+
+// |的用法
+
+//#include <stdio.h>
+//int main()
+//{
+//    int a = 3;
+//    int b = -5;
+//    int c = a | b;
+//    printf("c = %d\n",c);
+//    return 0;
+//}
+
+// ^的用法：相同为0，相异为1。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int a = 3;
+//    int b = -5;
+//    int c = a ^ b;
+//    printf("c = %d\n",c);
+//    return 0;
+//}
+
+//不创建临时变量，实现两个数的交换。
+
+//#include <stdio.h>
+//#include <windows.h>
+//int main()
+//{
+//    SetConsoleOutputCP(65001);
+//    int a = 3;
+//    int b = 5;
+//    printf("交换前：a = %d b = %d\n",a,b);
+//    a = a ^ b;            //a = 3^5
+//    b = a ^ b;           //b = 3^5^5 -->3
+//    a = a ^ b;          //a = 3^5^3 --> 5
+//    printf("交换后：a = %d b = %d\n",a,b);
+//    return 0;
+//}
+
+//编写代码，求一个整数存储在内存中的二进制1的个数
+
+//19.5、赋值操作符
+
+//#include <stdio.h>
+//int main()
+//{
+//    int a = 3;                  //初始化
+//
+//    int b = 0;
+//    b = 20;                   //赋值
+//
+//    return 0;
+//}
+
+//#include <stdio.h>
+//int main()
+//{
+//    int a = 3;                  //初始化
+//    a  = a + 5;
+//    a += 5;
+//
+//    a = a >> 1;
+//    a >>= 1;
+//
+//    return 0;
+//}
+
+//19.6、单目操作符
+//19.6.1、单目操作符介绍
+// !的应用
+
+//#include <stdio.h>
+//int main()
+//{
+//    int flag = 0;
+//    //flag为真，进入if。
+//    if(flag)
+//    {
+//        printf("hehe\n");
+//    }
+//    //flag为假，进入if。
+//    if(!flag)
+//    {
+//        printf("haha\n");
+//    }
+//    return 0;
+//}
+
+// &的应用
+//#include <stdio.h>
+//int main()
+//{
+//    int a = 5;
+//    printf("%p\n",&a);
+//    int *p = &a;
+//
+//    return 0;
+//}
+
+//sizeof的应用。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int a = 10;
+//    int n = sizeof(a);
+//    printf("n = %d\n",n);
+//    return 0;
+//}
+
+// ~的应用
+
+//#include <stdio.h>
+//int main()
+//{
+//    int a = 0;
+//    // ~表示按（二进制）位取反
+//    // 00000000000000000000000000000000    -补码
+//    // 11111111111111111111111111111111    -取反以后的补码
+//    // 11111111111111111111111111111110    -反码
+//    // 10000000000000000000000000000001    -原码
+//    // -1
+//    printf("%d\n",~a);
+//    return 0;
+//}
+
+// ++ --的使用
+
+//#include <stdio.h>
+//void test(int n)
+//{
+//    printf("%d\n",n);
+//}
+//int main()
+//{
+//    int a  = 10;
+//    test(a--);
+//    return 0;
+//}
+
+//#include <stdio.h>
+//int main()
+//{
+//    int sum1 = 0;
+//    int sum2 = 0;
+//    for (int i = 0; i < 10; i++)
+//    {
+//        sum1 += i;
+//    }
+//    for (int i = 0; i < 10; ++i)
+//    {
+//        sum2 += i;
+//    }
+//    printf("%d\n",sum1);
+//    printf("%d\n",sum2);
+//    return 0;
+//}
+
+// *(解引用操作符)的使用
+//#include <stdio.h>
+//int main()
+//{
+//    int a = 10;
+//    int *p = &a;
+//    *p = 20;
+//    printf("%d\n",a);
+//    return 0;
+//}
+
+// (类型) 强制类型转换
+
+//#include <stdio.h>
+//int main()
+//{
+//    int  a = (int)3.14;
+//    printf("%d\n",a);
+//    return 0;
+//}
+
+//#include <stdio.h>
+//void test1(int arr[])
+//{
+//    printf("%d\n",sizeof(arr));
+//}
+//void test2(char ch[])
+//{
+//    printf("%d\n",sizeof(ch));
+//}
+//int main()
+//{
+//    int arr[10] = {0};
+//    char ch[10] = {0};
+//    printf("%d\n",sizeof(arr));
+//    printf("%d\n",sizeof(ch));
+//    test1(arr);
+//    test2(ch);
+//    return 0;
+//}
+
+//19.7、关系操作符
+// < > == !=
+
+//19.8、逻辑操作符
+
+// 71节
+
+
+
+
