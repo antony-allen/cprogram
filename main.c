@@ -2661,11 +2661,13 @@
 //}
 //void reverse (char arr[],int left,int right)
 //{
-//    char tmp = arr[left];
-//    arr[left] = arr[right];
-//    arr[right] = tmp;
 //    if(left < right)
-//        reverse(arr,left+1,right-1);
+//    {
+//        char tmp = arr[left];
+//        arr[left] = arr[right];
+//        arr[right] = tmp;
+//        reverse(arr, left + 1, right - 1);
+//    }
 //}
 //int main()
 //{
@@ -2698,27 +2700,194 @@
 //}
 
 //编写一个函数，实现n的k次方
+
+//#include <stdio.h>
+//double pow(int n, int k)
+//{
+//    if (k > 0)
+//        return n * pow(n, k - 1);
+//    else if (k == 0)
+//        return 1;
+//    else
+//        return 1.0 / pow(n, -k);
+//}
+//
+//int main()
+//{
+//    int n = 0;
+//    int k = 0;
+//    scanf("%d %d", &n, &k);
+//    double ret = pow(n, k);
+//    printf("%lf\n", ret);
+//    return 0;
+//}
+
+//数组作业
+
+//#include <stdio.h>
+//int main()
+//{
+//    int arr[] = {1,2,(3,4),5,};
+//    printf("%d\n",sizeof(arr));
+//    return 0;
+//}
+
+
+//#include <stdio.h>
+//#include <string.h>
+//
+//
+////h e l l o _ b i t \0
+////sizeof是一个操作符，用来计算变量(类型)所占内存空间的大小，不关注内存中放置的具体内容。
+////strlen是一个库函数，是专门求字符串长度的，只能针对字符串。
+////从参数给定的地址向后找\0，统计\0之前出现的字符的个数。
+//
+//int main()
+//{
+//    char arr[] = "hello bit";
+//    printf("%d %d\n",sizeof(arr),strlen(arr));
+//    return 0;
+//}
+
+//将数组A中的内容和数组B中的内容进行交换，数组一样大。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int arr1[] = {1,3,5,7,9};
+//    int arr2[] = {2,4,6,8,0};
+//    int sz = sizeof(arr1) / sizeof(arr1[0]);
+//    for (int i = 0; i < sz; ++i)
+//    {
+//        int tmp = arr1[i];
+//        arr1[i] = arr2[i];
+//        arr2[i] = tmp;
+//    }
+//    for (int i = 0; i < sz; ++i)
+//    {
+//        printf("%d ",arr1[i]);
+//    }
+//    printf("\n");
+//
+//    for (int i = 0; i < sz; i++)
+//    {
+//        printf("%d ",arr2[i]);
+//    }
+//    printf("\n");
+//    return 0;
+//}
+
+//创建一个整型数组，完成以下操作
+//实现函数init，初始化数组全为0；
+//实现print函数，打印数组的每个元素；
+//实现函数reverse，完成数组元素的逆置。
+
+//#include <stdio.h>
+//void init(int arr[],int sz)
+//{
+//    for (int i = 0; i < sz; i++)
+//    {
+//        arr[i] = 0;
+//    }
+//}
+//void print(int arr[],int sz)
+//{
+//    for (int i = 0; i < sz; i++)
+//    {
+//        printf("%d ",arr[i]);
+//    }
+//    printf("\n");
+//}
+//
+//void reverse(int arr[],int sz)
+//{
+//    int left = 0;
+//    int right = sz-1;
+//    while(left < right)
+//    {
+//        int tmp = arr[left];
+//        arr[left] = arr[right];
+//        arr[right] = tmp;
+//
+//        left++;
+//        right--;
+//
+//    }
+//
+//}
+//int main()
+//{
+//    int arr[] = {1,2,3,4,5,6,7,8,9,0};
+//    int sz = sizeof(arr) / sizeof(arr[0]);
+//    print(arr,sz);
+//    reverse(arr,sz);
+//    print(arr,sz);
+//    init(arr,sz);
+//    print(arr,sz);
+//    return 0;
+//}
+
+//18.5.2、扫雷
+
+//19、操作符
+//19.1操作符的分类
+//19.1.1、算术操作符  + - * / %
+// %操作符的两端必须是整数
+
+//#include <stdio.h>
+//int main()
+//{
+//    int a = 7 % 2;
+//    int b = 7 / 2;
+//    printf("%d\n",a);
+//    printf("%d\n",b);
+//    return 0;
+//}
+
+//19.1.2、移位操作符
+//19.1.2.1、左移操作符
+//正数
+
+//#include <stdio.h>
+//int main()
+//{
+//    int a = 7;
+//    //左移操作符
+//    //移动的是二进制位
+//    int b = a << 1;
+//    printf("a = %d\n",a);
+//    printf("b = %d\n",b);
+//    return 0;
+//}
+
+//负数
+//#include <stdio.h>
+//int main()
+//{
+//    int a = -7;
+//    //左移操作符
+//    //移动的是二进制位，相当于乘以2。
+//    int b = a << 1;
+//    printf("a = %d\n",a);
+//    printf("b = %d\n",b);
+//    return 0;
+//}
+
+//19.1.2.2、右移操作符
+//算术右移操作符：右边丢弃，左边补原符号位。
+//逻辑右移操作符：右边丢弃，左边补0。
 #include <stdio.h>
-
-double pow(int n, int k);
-
-double pow(int n, int k) {
-    if (k > 0)
-        return n * pow(n, k - 1);
-    else if (k == 0)
-        return 1;
-    else
-        return 1.0 / n * (pow(n, -k));
-}
-
-int main() {
-    int n = 0;
-    int k = 0;
-    scanf_s("%d %d", &n, &k);
-    double ret = pow(n, k);
-    printf("%lf\n", ret);
+int main()
+{
+    int a = 7;
+    //右移操作符
+    //移动的是二进制位，相当于除以2。
+    int b = a >> 1;
+    printf("a = %d\n",a);
+    printf("b = %d\n",b);
     return 0;
 }
 
+//逻辑右移操作符
+//67节，还余10分钟。
 
-//64节

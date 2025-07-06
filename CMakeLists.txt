@@ -8,4 +8,8 @@ add_executable(cprogram main.c extern.c
         add.c
         test.c
         game.c
-        game.h)
+        game.h
+        game1.c
+        game1.h
+        test1.c
+)
