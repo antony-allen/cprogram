@@ -3608,4 +3608,276 @@
 //    return 0;
 //}
 
-//79
+//20.3、野指针
+//20.3.1、野指针的成因。
+//1、未初始化。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int *p;
+//    //p没有初始化，意味着没有明确的指向。
+//    //一个变量未初始化，放的是随机值。
+//    *p = 10;
+//    //非法访问内存,p就是野指针。
+//
+//
+//    return 0;
+//}
+
+//2、指针越界访问。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int arr[10] = {0};
+//    int *p = arr;
+//    for (int i = 0; i <= 10; i++)
+//    {
+//        *p = i;
+//        //当指针指向的范围超出arr数组的范围时，p就是野指针。
+//        p++;
+//    }
+//    return 0;
+//}
+
+//3、指针指向的空间释放。
+
+//#include <stdio.h>
+//int *test()
+//{
+//    int a = 20;
+//    return &a;
+//}
+//int main()
+//{
+//    int *p = test();
+//    *p = 10;
+//    printf("%d\n",*p);
+//    return 0;
+//}
+
+//20.3.2、规避野指针。
+
+//#include <stdio.h>
+//int main()
+//{
+//
+//    int a = 10;
+//    int *p = &a;
+//    *p = 20;
+//
+//
+//    int *p2 = NULL;
+//    *p2 = 100;         //err
+//
+//
+//    int *p3 = NULL;
+//    if(p3 != NULL)
+//    {
+//        *p3 = 100;
+//        // 正确
+//    }
+//
+//    return 0;
+//}
+
+//20.4、指针运算。
+//20.4.1、指针+-整数。
+
+//#define N_VALUE 5
+//#include <stdio.h>
+//int main()
+//{
+//    float value[N_VALUE];
+//    float *vp;
+//    for(vp = &value[0];vp < &value[N_VALUE];)
+//    {
+//        *vp++ = 0;
+//    }
+//    return 0;
+//}
+
+//#include <stdio.h>
+//int main()
+//{
+//    int arr[10] = {0};
+//    int sz = sizeof(arr) / sizeof(arr[0]);
+//
+////    for (int i = 0; i < sz; i++)
+////    {
+////        arr[i] = 1;
+////    }
+////
+//
+//
+////    int *p = arr;
+////    for (int i = 0; i < sz; i++)
+////    {
+////        *p = 1;
+////        p++;
+////    }
+//
+//    int *p = arr;
+//    for (int i = 0; i < sz; i++)
+//    {
+//        *(p+i) = 1;
+//    }
+//    return 0;
+//}
+
+//20.4.2、指针-指针
+//指针-指针得到的是指针之间的元素个数，指向同一块空间的两块指针才能相减。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int arr[10] = {0};
+//    printf("%lld\n",&arr[9]-&arr[0]);
+//
+//}
+
+//求字符串长度
+//方法1
+//#include <stdio.h>
+//#include <string.h>
+//int my_strlen(char *str)
+//{
+//    int count = 0;
+//    while (*str != '\0')
+//    {
+//        count++;
+//        str++;
+//    }
+//    return count;
+//}
+//int main()
+//{
+//    int len = my_strlen("abcdef");
+//    printf("%d\n",len);
+//    return 0;
+//}
+
+//用指针实现
+
+//#include <stdio.h>
+//#include <string.h>
+//int my_strlen(char *str)
+//{
+//    char *start = str;
+//    while (*str != '\0')
+//    {
+//        str++;
+//    }
+//    return (str-start);
+//}
+//int main()
+//{
+//    int len = my_strlen("abcdef");
+//    printf("%d\n",len);
+//    return 0;
+//}
+
+//20.4.3、指针的关系运算。
+
+//20.5、指针和数组
+
+//#include <stdio.h>
+//int main()
+//{
+//    int arr[10] = {0};
+//    //arr表示首元素的地址，&arr[0]
+//    int *p = arr;
+//    //通过指针访问数组
+//    int sz = sizeof(arr) / sizeof(arr[0]);
+//    for (int i = 0; i < sz; i++)
+//    {
+//        printf("%d ",*(p+i));
+//    }
+//    return 0;
+//}
+
+//20.6、二级指针。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int a = 10;
+//    //pa是一个指针变量，是一个一级指针变量。
+//    int *pa = &a;
+//    //ppa是一个二级指针变量。
+//    int **ppa = &pa;
+//    **ppa = 20;
+//    printf("%d\n",a);
+//
+
+//    return 0;
+//}
+
+//20.7、指针数组。
+//存放指针的数组就是指针数组。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int a = 10;
+//    int b = 20;
+//    int c  =30;
+//
+//    int arr[10];
+//
+//    int *pa = &a;
+//    int *pb = &b;
+//    int *pc = &c;
+//
+//    //parr是存放指针的数组
+//    //指针数组
+//    int *parr[10] = {&a,&b,&c};
+//
+//    for (int i = 0; i < 3; i++)
+//    {
+//        printf("%d ",*(parr[i]));
+//    }
+//
+//    return 0;
+//}
+
+//用指针数组模拟二维数组。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int arr[3][4] = {1,2,3,4,2,3,4,5,3,4,5,6};
+//    for (int i = 0; i < 3; i++)
+//    {
+//        for (int j = 0; j < 4; j++)
+//        {
+//            printf("%d ",arr[i][j]);
+//        }
+//        printf("\n");
+//    }
+//    return 0;
+//}
+
+
+//#include <stdio.h>
+//int main()
+//{
+//    int arr1[4] = {1,2,3,4};
+//    int arr2[4] = {2,3,4,5};
+//    int arr3[4] = {3,4,5,6};
+//
+//    int* parr[3] = {arr1,arr2,arr3};
+//    for (int i = 0; i < 3; i++)
+//    {
+//        for (int j = 0; j < 4; j++)
+//        {
+//            printf("%d ",parr[i][j]);
+//        }
+//        printf("\n");
+//    }
+//    return 0;
+//}
+
+
+//83
