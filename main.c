@@ -3608,4 +3608,1232 @@
 //    return 0;
 //}
 
-//79
+//20.3、野指针
+//20.3.1、野指针的成因。
+//1、未初始化。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int *p;
+//    //p没有初始化，意味着没有明确的指向。
+//    //一个变量未初始化，放的是随机值。
+//    *p = 10;
+//    //非法访问内存,p就是野指针。
+//
+//
+//    return 0;
+//}
+
+//2、指针越界访问。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int arr[10] = {0};
+//    int *p = arr;
+//    for (int i = 0; i <= 10; i++)
+//    {
+//        *p = i;
+//        //当指针指向的范围超出arr数组的范围时，p就是野指针。
+//        p++;
+//    }
+//    return 0;
+//}
+
+//3、指针指向的空间释放。
+
+//#include <stdio.h>
+//int *test()
+//{
+//    int a = 20;
+//    return &a;
+//}
+//int main()
+//{
+//    int *p = test();
+//    *p = 10;
+//    printf("%d\n",*p);
+//    return 0;
+//}
+
+//20.3.2、规避野指针。
+
+//#include <stdio.h>
+//int main()
+//{
+//
+//    int a = 10;
+//    int *p = &a;
+//    *p = 20;
+//
+//
+//    int *p2 = NULL;
+//    *p2 = 100;         //err
+//
+//
+//    int *p3 = NULL;
+//    if(p3 != NULL)
+//    {
+//        *p3 = 100;
+//        // 正确
+//    }
+//
+//    return 0;
+//}
+
+//20.4、指针运算。
+//20.4.1、指针+-整数。
+
+//#define N_VALUE 5
+//#include <stdio.h>
+//int main()
+//{
+//    float value[N_VALUE];
+//    float *vp;
+//    for(vp = &value[0];vp < &value[N_VALUE];)
+//    {
+//        *vp++ = 0;
+//    }
+//    return 0;
+//}
+
+//#include <stdio.h>
+//int main()
+//{
+//    int arr[10] = {0};
+//    int sz = sizeof(arr) / sizeof(arr[0]);
+//
+////    for (int i = 0; i < sz; i++)
+////    {
+////        arr[i] = 1;
+////    }
+////
+//
+//
+////    int *p = arr;
+////    for (int i = 0; i < sz; i++)
+////    {
+////        *p = 1;
+////        p++;
+////    }
+//
+//    int *p = arr;
+//    for (int i = 0; i < sz; i++)
+//    {
+//        *(p+i) = 1;
+//    }
+//    return 0;
+//}
+
+//20.4.2、指针-指针
+//指针-指针得到的是指针之间的元素个数，指向同一块空间的两块指针才能相减。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int arr[10] = {0};
+//    printf("%lld\n",&arr[9]-&arr[0]);
+//
+//}
+
+//求字符串长度
+//方法1
+//#include <stdio.h>
+//#include <string.h>
+//int my_strlen(char *str)
+//{
+//    int count = 0;
+//    while (*str != '\0')
+//    {
+//        count++;
+//        str++;
+//    }
+//    return count;
+//}
+//int main()
+//{
+//    int len = my_strlen("abcdef");
+//    printf("%d\n",len);
+//    return 0;
+//}
+
+//用指针实现
+
+//#include <stdio.h>
+//#include <string.h>
+//int my_strlen(char *str)
+//{
+//    char *start = str;
+//    while (*str != '\0')
+//    {
+//        str++;
+//    }
+//    return (str-start);
+//}
+//int main()
+//{
+//    int len = my_strlen("abcdef");
+//    printf("%d\n",len);
+//    return 0;
+//}
+
+//20.4.3、指针的关系运算。
+
+//20.5、指针和数组
+
+//#include <stdio.h>
+//int main()
+//{
+//    int arr[10] = {0};
+//    //arr表示首元素的地址，&arr[0]
+//    int *p = arr;
+//    //通过指针访问数组
+//    int sz = sizeof(arr) / sizeof(arr[0]);
+//    for (int i = 0; i < sz; i++)
+//    {
+//        printf("%d ",*(p+i));
+//    }
+//    return 0;
+//}
+
+//20.6、二级指针。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int a = 10;
+//    //pa是一个指针变量，是一个一级指针变量。
+//    int *pa = &a;
+//    //ppa是一个二级指针变量。
+//    int **ppa = &pa;
+//    **ppa = 20;
+//    printf("%d\n",a);
+//
+
+//    return 0;
+//}
+
+//20.7、指针数组。
+//存放指针的数组就是指针数组。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int a = 10;
+//    int b = 20;
+//    int c  =30;
+//
+//    int arr[10];
+//
+//    int *pa = &a;
+//    int *pb = &b;
+//    int *pc = &c;
+//
+//    //parr是存放指针的数组
+//    //指针数组
+//    int *parr[10] = {&a,&b,&c};
+//
+//    for (int i = 0; i < 3; i++)
+//    {
+//        printf("%d ",*(parr[i]));
+//    }
+//
+//    return 0;
+//}
+
+//用指针数组模拟二维数组。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int arr[3][4] = {1,2,3,4,2,3,4,5,3,4,5,6};
+//    for (int i = 0; i < 3; i++)
+//    {
+//        for (int j = 0; j < 4; j++)
+//        {
+//            printf("%d ",arr[i][j]);
+//        }
+//        printf("\n");
+//    }
+//    return 0;
+//}
+
+
+//#include <stdio.h>
+//int main()
+//{
+//    int arr1[4] = {1,2,3,4};
+//    int arr2[4] = {2,3,4,5};
+//    int arr3[4] = {3,4,5,6};
+//
+//    int* parr[3] = {arr1,arr2,arr3};
+//    for (int i = 0; i < 3; i++)
+//    {
+//        for (int j = 0; j < 4; j++)
+//        {
+//            printf("%d ",parr[i][j]);
+//        }
+//        printf("\n");
+//    }
+//    return 0;
+//}
+
+
+//21、结构体。
+
+//21.1、结构体的声明。
+//21.1.1、结构的定义。
+//21.1.2、结构体的声明。
+//21.1.3、结构成员的类型。
+//21.1.4、结构体的定义和初始化。
+
+//#include <stdio.h>
+//struct Peo
+//{
+//    char name[20];
+//    char tele[12];
+//    char sex[5];
+//    int high;
+//};
+//struct st
+//{
+//    struct Peo p;
+//    int num;
+//    float f;
+//};
+//int main()
+//{
+//    //结构体变量的创建
+//    struct Peo p1;
+//
+//    return 0;
+//}
+
+//21.2、结构体成员的访问。
+
+//#include <stdio.h>
+//#include <windows.h>
+//struct Peo
+//{
+//    char name[20];
+//    char tele[12];
+//    char sex[5];
+//    int high;
+//};
+//struct st
+//{
+//    struct Peo p;
+//    int num;
+//    float f;
+//};
+//void print1(struct Peo *sp)
+//{
+//    //结构体指针->成员变量
+//    printf("%s %s %s %d\n",sp->name,sp->tele,sp->sex,sp->high);
+//}
+//void print2(struct Peo p)
+//{
+//    //结构体变量.成员变量
+//    printf("%s %s %s %d\n",p.name,p.tele,p.sex,p.high);
+//}
+//int main()
+//{
+//    SetConsoleOutputCP(65001);
+//    //结构体变量的创建
+//    struct Peo p1 = {"张三","15991148562","男",181};
+//    struct st s = {{"李四","15596668888","女",161},100,3.14f};
+//    printf("%s %s %s %d\n",p1.name,p1.tele,p1.sex,p1.high);
+//    printf("%s %s %s %d %d %f\n",s.p.name,s.p.tele,s.p.sex,s.p.high,s.num,s.f);
+//    print1(&p1);
+//    print2(p1);
+//    return 0;
+//}
+
+//21.3、结构体传参。
+
+//#include <stdio.h>
+//#include <windows.h>
+//struct Peo
+//{
+//    char name[20];
+//    char tele[12];
+//    char sex[5];
+//    int high;
+//};
+//struct st
+//{
+//    struct Peo p;
+//    int num;
+//    float f;
+//};
+//void print1(struct Peo *sp)
+//{
+//    //结构体指针->成员变量
+//    printf("%s %s %s %d\n",sp->name,sp->tele,sp->sex,sp->high);
+//}
+//void print2(struct Peo p)
+//{
+//    //结构体变量.成员变量
+//    printf("%s %s %s %d\n",p.name,p.tele,p.sex,p.high);
+//}
+//int main()
+//{
+//    SetConsoleOutputCP(65001);
+//    //结构体变量的创建
+//    struct Peo p1 = {"张三","15991148562","男",181};
+//    struct st s = {{"李四","15596668888","女",161},100,3.14f};
+//    printf("%s %s %s %d\n",p1.name,p1.tele,p1.sex,p1.high);
+//    printf("%s %s %s %d %d %f\n",s.p.name,s.p.tele,s.p.sex,s.p.high,s.num,s.f);
+//    print1(&p1);
+//    print2(p1);
+//    return 0;
+//}
+
+//操作符练习题
+
+//#include <stdio.h>
+//int main()
+//{
+//    int a,b,c;
+//    a = 5;
+//    c = ++a;
+//    b = ++c,c++,++a,a++;
+//    b += a++ +c;
+//    printf("a = %d b = %d c = %d\n",a,b,c);
+//    return 0;
+//}
+
+//统计二进制数中1的个数。
+//比如15 0000 1111 4个1。
+//方法1
+
+//#include <stdio.h>
+//int count_num_of_1(unsigned int n)
+//{
+//    int count = 0;
+//    while (n)
+//    {
+//        if(n % 2 == 1)
+//        {
+//            count++;
+//        }
+//        n /= 2;
+//    }
+//    return count;
+//}
+//int main()
+//{
+//    int num = 0;
+//    scanf("%d",&num);
+//    int n = count_num_of_1(num);
+//    printf("%d\n",n);
+//    return 0;
+//}
+
+//方法2。
+
+//#include <stdio.h>
+//int count_num_of_1(int n)
+//{
+//    int count = 0;
+//    for (int i = 0; i < 32; i++)
+//    {
+//        if(((n >> i) & 1) == 1)
+//        {
+//            count++;
+//        }
+//    }
+//    return count;
+//}
+//int main()
+//{
+//    int num = 0;
+//    scanf("%d",&num);
+//    int n = count_num_of_1(num);
+//    printf("%d\n",n);
+//    return 0;
+//}
+
+//方法3
+
+//#include <stdio.h>
+//int count_num_of_1(int n)
+//{
+//    int count = 0;
+//    while(n)
+//    {
+//        n = n & (n-1);
+//        count++;
+//    }
+//    return count;
+//}
+//int main()
+//{
+//    int num = 0;
+//    scanf("%d",&num);
+//    int n = count_num_of_1(num);
+//    printf("%d\n",n);
+//    return 0;
+//}
+
+//求两个数，二进制中不同位的个数。
+//方法1
+
+//#include <stdio.h>
+//int count_differ_bit(int m,int n)
+//{
+//    int count = 0;
+//    for (int i = 0; i < 32; i++)
+//    {
+//       if(((m>>i) & 1 )!= ((n>>i) & 1))
+//       {
+//           count++;
+//       }
+//    }
+//    return count;
+//}
+//int main()
+//{
+//    int m = 0;
+//    int n = 0;
+//    scanf("%d %d",&m,&n);
+//    int ret = count_differ_bit(m,n);
+//    printf("%d\n",ret);
+//    return 0;
+//}
+
+//方法2
+
+//#include <stdio.h>
+//int count_differ_bit(int m,int n)
+//{
+//    int count = 0;
+//    int ret = m ^ n;
+//    while (ret)
+//    {
+//        ret = ret & (ret - 1);
+//        count++;
+//    }
+//    return count;
+//}
+//int main()
+//{
+//    int m = 0;
+//    int n = 0;
+//    scanf("%d %d",&m,&n);
+//    int ret = count_differ_bit(m,n);
+//    printf("%d\n",ret);
+//    return 0;
+//}
+
+//获取一个整数二进制序列中，所有的偶数位和奇数位，分别打印出二进制序列。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int num = 0;
+//    scanf("%d",&num);
+//    //获取奇数位的数字
+//    for (int i = 30; i >= 0; i -= 2)
+//    {
+//        printf("%d ",(num >> i) & 1);
+//    }
+//    printf("\n");
+//    //获取偶数位的数字
+//    for (int i = 31; i >= 0; i -= 2)
+//    {
+//        printf("%d ",(num >> i) & 1);
+//    }
+//    return 0;
+//}
+
+//
+
+//#include <stdio.h>
+//int i;
+//int main()
+//{
+//    i--;
+//    if(i > sizeof(i))
+//    {
+//        printf(">\n");
+//    }
+//    else
+//    {
+//        printf("<\n");
+//    }
+//    return 0;
+//}
+
+//X型图案
+
+//#include <stdio.h>
+//#include <windows.h>
+//int main()
+//{
+//    SetConsoleOutputCP(65001);
+//    int n = 0;
+//    printf("请输入图案大小: ");
+//    while (scanf("%d", &n) == 1)
+//    {
+//        for (int i = 0; i < n; i++)
+//        {
+//            for (int j = 0; j < n; j++)
+//            {
+//                if (i == j)  // 主对角线
+//                {
+//                    printf("*");
+//                }
+//                else if (i + j == n - 1)  // 副对角线
+//                {
+//                    printf("*");
+//                }
+//                else
+//                {
+//                    printf(" ");
+//                }
+//            }
+//            printf("\n");  // 关键修复：每行结束后换行
+//        }
+//        printf("\n请输入下一个图案大小(CTRL+C退出): ");
+//    }
+//    return 0;
+//}
+
+//获得月份天数。
+
+//#include <stdio.h>
+//int is_leap_year(int y)
+//{
+//    return (((y % 4 == 0) && (y % 100 != 0)) || (y % 400 == 0));
+//}
+//int main()
+//{
+//    int y = 0;
+//    int m = 0;
+//    int d = 0;
+//    int days[13] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
+//
+//    while (scanf("%d %d",&y,&m) == 2)
+//    {
+//        d = days[m];
+//        if((is_leap_year(y) == 1) && (m == 2))
+//        {
+//            d++;
+//        }
+//        printf("%d\n",d);
+//    }
+//
+//    return 0;
+//}
+
+//22、调试。
+//22.1、bug的定义。
+//22.2、调试。
+//22.2.1、调试的定义。
+//22.2.2、调试的基本步骤。
+//22.2.3、Debug和Release。
+
+//#include <stdio.h>
+//int main()
+//{
+//    for (int i = 0; i < 10; i++)
+//    {
+//        printf("%d ",i);
+//    }
+//    return 0;
+//}
+
+//22.3、Windows调试环境介绍。
+//22.3.1、调试环境的准备。
+//22.3.2、快捷键介绍。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int arr[10] = {0};
+//    for (int i = 0; i < 10; i++)
+//    {
+//        scanf("%d",&arr[i]);
+//    }
+//    for (int i = 0; i < 10; i++)
+//    {
+//        printf("%d ",arr[i]);
+//    }
+//    return 0;
+//}
+
+
+//#include <stdio.h>
+//int add(int x,int y)
+//{
+//    return x + y;
+//}
+//int main()
+//{
+//    int a = 10;
+//    int b = 20;
+//    int c = add(a,b);
+//    printf("%d\n",c);
+//    return 0;
+//}
+
+
+//22.3.3、调试的时候查看当前信息。
+//22.3.3.1、查看临时变量的值。
+
+//#include <stdio.h>
+//int add(int x,int y)
+//{
+//    return x + y;
+//}
+//int main()
+//{
+//    int a = 10;
+//    int b = 20;
+//    int c = add(a,b);
+//    printf("%d\n",c);
+//    return 0;
+//}
+
+//22.3.3.2、查看内存信息。
+//22.3.3.3、查看调用堆栈。
+//22.3.3.4、查看汇编信息。
+//22.3.3.5、查看寄存器信息。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int a = 10;
+//    int b = 20;
+//    int c = a + b;
+//    printf("%d\n",c);
+//    return 0;
+//}
+
+//22.4、多尝试，多调试。
+//22.5、调试案例。
+//22.5.1、案例1。
+//1!+2!+3!+...+n!。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int n = 0;
+//    scanf("%d",&n);
+//    int ret = 1;
+//    int sum = 0;
+//    int i = 0;
+//    for (int j = 1; j <= n; j++)
+//    {
+//        ret = 1;
+//        for (int i = 1; i <= j; i++)
+//        {
+//            ret *= i;
+//        }
+//        sum += ret;
+//    }
+//    printf("%d\n",sum);
+//    return 0;
+//}
+
+
+//22.5.2、案例2。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int i = 0;
+//    int arr[] = {1,2,3,4,5,6,7,8,9,10};
+//    for ( i = 0; i <= 12; i++)
+//    {
+//        arr[i] = 0;
+//        printf("hehe\n");
+//    }
+//    return 0;
+//}
+
+//22.6、如何写出好（易于调试）的代码。
+//22.6.1、优秀的代码。
+//22.6.2、示范。
+
+//#include <stdio.h>
+//#include <string.h>
+//void my_strcpy(char *dest,char *src)
+//{
+//    while (*src != '\0')
+//    {
+//        *dest = *src;
+//        dest++;
+//        src++;
+//    }
+//    *dest = *src;
+//
+//}
+//int main()
+//{
+//    char arr1[20] = "XXXXXXXXXXXX";
+//    char arr2[]   = "hello bit!";
+//    my_strcpy(arr1,arr2);
+//    printf("%s\n",arr1);
+//    return 0;
+//}
+
+//优化版
+
+//#include <stdio.h>
+//#include <string.h>
+//#include <assert.h>
+//void my_strcpy(char *dest,const char *src)
+//{
+//    //断言
+//    assert(src != NULL);
+//    assert(dest != NULL);
+//    while (*dest++ = *src++)
+//    {
+//        ;
+//    }
+//}
+//int main()
+//{
+//    char arr1[20] = "XXXXXXXXXXXX";
+//    char arr2[]   = "hello bit!";
+//    //char *p = NULL;
+//    my_strcpy(arr1,arr2);
+//    printf("%s\n",arr1);
+//    return 0;
+//}
+
+//#include <stdio.h>
+//int main()
+//{
+//    int num = 10;
+//    num = 20;
+//    printf("%d\n",num);
+//
+//    const int num = 10;
+//    //num = 20;
+//    //const修饰指针变量。
+//    //1.const放在*左边，意思p指向的对象不能通过p来改变,但是p变量本身的值可以改变。
+//    //*p = 20; err
+//    //2.const放在*右边，意思p指向的对象可以通过p来改变,但是不能修改p变量本身的值。
+//    int* const p = &num;
+//    *p = 0;//ok
+//    int n = 100;
+//    p= &n;//err
+//    //const int *p = &num;
+//    //int n = 100;
+//    //p = &n;
+//    //*p = 20;
+//    printf("%d\n",num);
+//    return 0;
+//}
+
+//求字符串长度。
+
+//#include <stdio.h>
+//#include <assert.h>
+//int my_strlen(const char *str)
+//{
+//    int count = 0;
+//    assert(str);
+//    while (*str != '\0')
+//    {
+//        count++;
+//        str++;
+//    }
+//    return count;
+//}
+//
+//int main()
+//{
+//    char arr[] = "hello bit";
+//    int len = my_strlen(arr);
+//    printf("%d\n",len);
+//    return 0;
+//}
+
+
+//22.7、编程常见的错误。
+//22.7.1、编译型错误（语法错误）。
+//22.7.2、链接型错误（出现在链接期间）。
+//22.7.3、运行时错误（调试解决）。
+
+//#include <stdio.h>
+//int add(int x,int y)
+//{
+//    return x + y;
+//}
+//int main()
+//{
+//    int a = 0;
+//    int b = 10;
+//    int c = add(a,b);
+//    printf("%d\n",c);
+//    return 0;
+//}
+
+//作业讲解
+//1、三角形判断（等腰三角形、等边三角形、普通三角形）
+//#include <stdio.h>
+//int main()
+//{
+//    int a = 0;
+//    int b = 0;
+//    int c = 0;
+//    while (scanf("%d %d %d",&a,&b,&c)==3)
+//    {
+//        //判断
+//        if((a+b>c) && (a+c>b) && (b+c>a))
+//        {
+//            if(a==b && b==c)
+//            {
+//                printf("Equilateral triangle!\n");
+//            }
+//            else if((a==b && b!=c)||(a==c && c!=b)||(b==c && c!=b))
+//            {
+//                printf("Isosceles triangle!\n");
+//            }
+//            else
+//            {
+//                printf("Ordinary triangle!\n");
+//            }
+//        }
+//        else
+//        {
+//            printf("Not a triangle!\n");
+//        }
+//    }
+//    return 0;
+//}
+
+
+//2、代码的结果
+//#include <stdio.h>
+//int main()
+//{
+//    int arr[] = {1,2,3,4,5};
+//    short* p = (short*)arr;
+//    int i = 0;
+//    for (i = 0; i < 4; i++)
+//    {
+//        *(p+i) = 0;
+//    }
+//    for (i = 0; i < 5; i++)
+//    {
+//        printf("%d ",arr[i]);
+//    }
+//    return 0;
+//}
+
+//3、代码的结果
+//#include <stdio.h>
+//int main()
+//{
+//    int a = 0x11223344;
+//    char* pc = (char*)&a;
+//    *pc = 0;
+//    printf("%x\n",a);
+//    return 0;
+//}
+
+//4、写一个函数打印arr数组的内容，不使用下标，使用指针。
+
+//#include <stdio.h>
+//void print(int* p,int sz)
+//{
+//    for (int i = 0; i < sz; i++)
+//    {
+//        printf("%d ",*(p+i));
+//    }
+//    printf("\n");
+//}
+//int main()
+//{
+//    int arr[] = {1,2,3,4,5,6,7,8,9,10};
+//    int sz = sizeof(arr)/sizeof(arr[0]);
+//    print(arr,sz);
+//    return 0;
+//}
+
+//5、字符串逆序
+
+//#include <stdio.h>
+//#include <string.h>
+//int main()
+//{
+//    char arr[10001] = {0};
+//    gets(arr);
+//    //逆序
+//    int left = 0;
+//    int right = strlen(arr)-1;
+//    while(left < right)
+//    {
+//        char tmp = arr[left];
+//        arr[left] = arr[right];
+//        arr[right] = tmp;
+//        left++;
+//        right--;
+//    }
+//    printf("%s",arr);
+//    return 0;
+//}
+
+//6、计算Sn = a + aa + aaa + aaaa + aaaaa。前5项的和，其中a是一个数字。
+//例如：2 + 22 + 222 + 2222 + 22222
+
+//#include <stdio.h>
+//int main()
+//{
+//    int a = 0;
+//    int n = 0;
+//    scanf("%d %d",&a,&n);
+//    int sum = 0;
+//    int k = 0;
+//    for (int i = 0; i < n; i++)
+//    {
+//        k = k * 10 + a;
+//        sum += k;
+//    }
+//    printf("%d\n",sum);
+//    return 0;
+//}
+
+//7、打印水仙花数，0~100000之间的所有水仙花数。
+
+//#include <stdio.h>
+//#include <math.h>
+//int main()
+//{
+//    for (int i = 0; i <= 100000; i++)
+//    {
+//        //判断i是否为“水仙花数”。
+//        //1、计算i是几位数。
+//        int n = 1;
+//        int tmp = i;
+//        int sum = 0;
+//        while (tmp / 10)
+//        {
+//            n++;
+//            tmp /= 10;
+//        }
+//        //2、得到它的每一位，计算i的n次方之和。
+//        tmp = i;
+//        while (tmp)
+//        {
+//            sum += pow(tmp % 10,n);
+//            tmp /= 10;
+//        }
+//        if(sum == i)
+//        {
+//            printf("%d ",i);
+//        }
+//    }
+//
+//    return 0;
+//}
+
+//8、打印菱形。
+
+//#include <stdio.h>
+//int main()
+//{
+//    //上
+//    int line = 0;
+//    scanf("%d",&line);
+//    for (int i = 0; i < line; i++)
+//    {
+//        //打印一行
+//        //空格的打印
+//        for (int j = 0; j < line - 1 - i; j++)
+//        {
+//            printf(" ");
+//        }
+//        //*
+//        for (int j = 0; j < 2 * i + 1; j++)
+//        {
+//            printf("*");
+//        }
+//        printf("\n");
+//    }
+//    //下
+//    for (int i = 0; i < line - 1; i++)
+//    {
+//        //打印一行
+//        //打印空格
+//        for (int j = 0; j <= i ; j++)
+//        {
+//            printf(" ");
+//        }
+//        //*
+//        for (int j = 0; j < 2 * (line-1-i)-1; j++)
+//        {
+//            printf("*");
+//        }
+//        printf("\n");
+//    }
+//    return 0;
+//}
+
+//9、喝汽水问题，一瓶汽水1元，两个空瓶可以换一瓶汽水，给20元，可以喝多少汽水。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int money = 0;
+//    scanf("%d",&money);
+//    int total = money;
+//    int empty = money;
+//    //置换
+//    while (empty >= 2)
+//    {
+//        total += empty / 2;
+//        empty = empty / 2 + empty % 2;
+//    }
+//    printf("%d\n",total);
+//    return 0;
+//}
+
+//96节
+//初级测评
+//1、计算展开的次数
+
+//#include <stdio.h>
+//int cnt = 0;
+//int fib(int n)
+//{
+//    cnt ++;
+//    if(n == 0)
+//        return 1;
+//    else if(n == 1)
+//        return 2;
+//    else
+//        return fib(n - 1) + fib(n - 2);
+//}
+//void main()
+//{
+//    fib(8);
+//    printf("%d\n",cnt);
+//}
+
+//2、代码的结果。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int x = 1;
+//    do
+//    {
+//        printf("%2d\n",x++);
+//    } while (x--);
+//
+//}
+
+//3、代码的结果。
+
+//#include <stdio.h>
+//#include <stdlib.h>
+//int a = 1;
+//void test()
+//{
+//    int a = 2;
+//    a += 1;
+//}
+//int main()
+//{
+//    test();
+//    printf("%d\n",a);
+//    return 0;
+//}
+
+//4、正整数A和B，求A和B的最小公倍数。
+//方法一：
+
+//#include <stdio.h>
+//int main()
+//{
+//    int a = 0;
+//    int b = 0;
+//    scanf("%d %d",&a,&b);
+//    //计算a和b的最小公倍数
+//    int m = (a > b? a:b);
+//    while (1)
+//    {
+//        if(m % a == 0 && m % b == 0)
+//        {
+//            break;
+//        }
+//        m++;
+//    }
+//    //打印
+//    printf("%d\n",m);
+//    return 0;
+//}
+
+//方法二：
+
+//#include <stdio.h>
+//int main()
+//{
+//    int a = 0;
+//    int b = 0;
+//    scanf("%d %d",&a,&b);
+//    //计算a和b的最小公倍数。
+//    int i = 1;
+//    while (a * i % b)
+//    {
+//        i++;
+//    }
+//    //打印
+//    printf("%d\n",a*i);
+//    return 0;
+//}
+
+//5、倒置字符串，一句话，倒置单词，不倒置标点，比如 I like beijng. 倒置后为 beijng. like I。
+
+//#include <stdio.h>
+//#include <string.h>
+//#include <assert.h>
+//void reverse(char* left ,char* right)
+//{
+//    assert(left);
+//    assert(right);
+//    while (left < right)
+//    {
+//        char tmp = *left;
+//        *left = *right;
+//        *right = tmp;
+//        left++;
+//        right--;
+//    }
+//}
+//int main()
+//{
+//    char arr[101] = { 0 };
+//    //输入
+//    gets(arr);
+//    //1、逆序整个字符串
+//    int len = strlen(arr);
+//    reverse(arr,arr+len-1);
+//    //2、逆序每个单词。
+//    char* start = arr;
+//    while (*start)
+//    {
+//        char* end = start;
+//        while (*end != ' ' && *end != '\0')
+//        {
+//            end++;
+//        }
+//        reverse(start,end-1);
+//        if(*end != '\0')
+//        end++;
+//        start = end;
+//    }
+//    //输出
+//    printf("%s\n",arr);
+//    return 0;
+//}
+
+//97节
+//C语言进阶
