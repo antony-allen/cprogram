@@ -3608,4 +3608,128 @@
 //    return 0;
 //}
 
-//79
+//20.3、野指针
+//20.3.1、野指针的成因。
+//1、未初始化。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int *p;
+//    //p没有初始化，意味着没有明确的指向。
+//    //一个变量未初始化，放的是随机值。
+//    *p = 10;
+//    //非法访问内存,p就是野指针。
+//
+//
+//    return 0;
+//}
+
+//2、指针越界访问。
+
+//#include <stdio.h>
+//int main()
+//{
+//    int arr[10] = {0};
+//    int *p = arr;
+//    for (int i = 0; i <= 10; i++)
+//    {
+//        *p = i;
+//        //当指针指向的范围超出arr数组的范围时，p就是野指针。
+//        p++;
+//    }
+//    return 0;
+//}
+
+//3、指针指向的空间释放。
+
+//#include <stdio.h>
+//int *test()
+//{
+//    int a = 20;
+//    return &a;
+//}
+//int main()
+//{
+//    int *p = test();
+//    *p = 10;
+//    printf("%d\n",*p);
+//    return 0;
+//}
+
+//20.3.2、规避野指针。
+
+//#include <stdio.h>
+//int main()
+//{
+//
+//    int a = 10;
+//    int *p = &a;
+//    *p = 20;
+//
+//
+//    int *p2 = NULL;
+//    *p2 = 100;         //err
+//
+//
+//    int *p3 = NULL;
+//    if(p3 != NULL)
+//    {
+//        *p3 = 100;
+//        // 正确
+//    }
+//
+//    return 0;
+//}
+
+//20.4、指针运算。
+//20.4.1、指针+-整数。
+
+//#define N_VALUE 5
+//#include <stdio.h>
+//int main()
+//{
+//    float value[N_VALUE];
+//    float *vp;
+//    for(vp = &value[0];vp < &value[N_VALUE];)
+//    {
+//        *vp++ = 0;
+//    }
+//    return 0;
+//}
+
+//#include <stdio.h>
+//int main()
+//{
+//    int arr[10] = {0};
+//    int sz = sizeof(arr) / sizeof(arr[0]);
+//
+////    for (int i = 0; i < sz; i++)
+////    {
+////        arr[i] = 1;
+////    }
+////
+//
+//
+////    int *p = arr;
+////    for (int i = 0; i < sz; i++)
+////    {
+////        *p = 1;
+////        p++;
+////    }
+//
+//    int *p = arr;
+//    for (int i = 0; i < sz; i++)
+//    {
+//        *(p+i) = 1;
+//    }
+//    return 0;
+//}
+
+//20.4.2、指针+-指针
+
+
+//81
+
+
+
